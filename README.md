@@ -3,11 +3,11 @@
 ## Problemas
 
 1. Dificuldade na criação de exames eficientes, personalizados e dinâmicos
-A ausência de uma ferramenta para gerar provas torna o processo de criação de avaliações personalizadas mais complexo para os professores, pois é altamente custoso realizar manualmente provas para diferentes turmas e diferentes tipos de uma mesma prova para uma mesma turma. Provavelmente, um professor terá que reusar sua prova por muito tempo até que ela se torne obsoleta.
+- A ausência de uma ferramenta para gerar provas torna o processo de criação de avaliações personalizadas mais complexo para os professores, pois é altamente custoso realizar manualmente provas para diferentes turmas e diferentes tipos de uma mesma prova para uma mesma turma. Provavelmente, um professor terá que reusar sua prova por muito tempo até que ela se torne obsoleta.
 2. Complexidade e recursos escassos
-Não é uma tarefa fácil e rápida administrar provas de composição dinâmica em editores de texto comuns, independente de sua complexidade ou custo. Mesmo as ferramentas como Googles Forms, por exemplo, não conseguem compor provas de forma aleatória, utilizando versões, assuntos e pesos diferentes em suas questões.
+- Não é uma tarefa fácil e rápida administrar provas de composição dinâmica em editores de texto comuns, independente de sua complexidade ou custo. Mesmo as ferramentas como Googles Forms, por exemplo, não conseguem compor provas de forma aleatória, utilizando versões, assuntos e pesos diferentes em suas questões.
 3. Dificuldade em ter acesso a provas anteriormente aplicadas
-Uma aula ou um exercício podem não definir o exame final de um professor. Isso pode exercer desânimo e frustação para o aluno que estudou genuinamente para a disciplina. Em mecanismos de buscas contemporâneos, é possível encontrar exercícios e provas de acordo com os assuntos. Entretanto, é raro poder encontrar uma prova de acordo com a instituição e o professor.
+- Uma aula ou um exercício podem não definir o exame final de um professor. Isso pode exercer desânimo e frustação para o aluno que estudou genuinamente para a disciplina. Em mecanismos de buscas contemporâneos, é possível encontrar exercícios e provas de acordo com os assuntos. Entretanto, é raro poder encontrar uma prova de acordo com a instituição e o professor.
 
 ## Expectativas
 
