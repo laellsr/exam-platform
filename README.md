@@ -12,9 +12,9 @@
 ## Expectativas
 
 1. Facilidade na criação de exames eficientes, personalizados e dinâmicos
-Espera-se que o produto forneça uma ferramenta robusta e intuitiva para a geração de provas personalizadas de forma eficiente. Os professores devem ser capazes de criar avaliações com facilidade, selecionando diferentes tipos de questões, ajustando níveis de dificuldade e pesos, e até mesmo gerando variantes aleatórias das provas para diferentes turmas. Deve existir a possibilidade da prova ser compartilhada publicamente com os alunos. É fundamental que o produto garanta a segurança das provas e evite vazamento de informações.
+- Espera-se que o produto forneça uma ferramenta robusta e intuitiva para a geração de provas personalizadas de forma eficiente. Os professores devem ser capazes de criar avaliações com facilidade, selecionando diferentes tipos de questões, ajustando níveis de dificuldade e pesos, e até mesmo gerando variantes aleatórias das provas para diferentes turmas. Deve existir a possibilidade da prova ser compartilhada publicamente com os alunos. É fundamental que o produto garanta a segurança das provas e evite vazamento de informações.
 2. Acesso a provas anteriormente aplicadas
-A expectativa é que o produto ofereça um banco de dados abrangente e organizado, contendo provas aplicadas por outros professores e instituições. Os usuários devem poder pesquisar por disciplina, instituição e professor, possibilitando o acesso a diferentes modelos de avaliações que auxiliem na preparação dos alunos com ajuda comunitária. 
+- A expectativa é que o produto ofereça um banco de dados abrangente e organizado, contendo provas aplicadas por outros professores e instituições. Os usuários devem poder pesquisar por disciplina, instituição e professor, possibilitando o acesso a diferentes modelos de avaliações que auxiliem na preparação dos alunos com ajuda comunitária. 
 
 ## Expectativas Futuras
 
