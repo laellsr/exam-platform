@@ -19,7 +19,7 @@
 ## Expectativas Futuras
 
 - Administração de provas de forma online
-O produto deve superar a complexidade das ferramentas tradicionais, proporcionando uma plataforma fácil de usar, mesmo para provas de composição dinâmica.
+    - O produto deve superar a complexidade das ferramentas tradicionais, proporcionando uma plataforma fácil de usar, mesmo para provas de composição dinâmica.
 - Correção Automática
 - Monitoramento de Desempenho
 Permitir que os professores acompanhem o desempenho dos alunos individualmente e em turma, gerando relatórios detalhados para identificar pontos fortes e fracos e, assim, adaptar suas estratégias de ensino.
