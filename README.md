@@ -22,13 +22,13 @@
     - O produto deve superar a complexidade das ferramentas tradicionais, proporcionando uma plataforma fácil de usar, mesmo para provas de composição dinâmica.
 - Correção Automática
 - Monitoramento de Desempenho
-Permitir que os professores acompanhem o desempenho dos alunos individualmente e em turma, gerando relatórios detalhados para identificar pontos fortes e fracos e, assim, adaptar suas estratégias de ensino.
+    - Permitir que os professores acompanhem o desempenho dos alunos individualmente e em turma, gerando relatórios detalhados para identificar pontos fortes e fracos e, assim, adaptar suas estratégias de ensino.
 - Recursos de Aprendizagem Personalizados
-Utilizar algoritmos de aprendizado de máquina para identificar as necessidades específicas de cada aluno e sugerir recursos educacionais personalizados, como exercícios de reforço, tutoriais e vídeos explicativos.
+    - Utilizar algoritmos de aprendizado de máquina para identificar as necessidades específicas de cada aluno e sugerir recursos educacionais personalizados, como exercícios de reforço, tutoriais e vídeos explicativos.
 - Comunicação em Tempo Real
 - Módulo de Redação
 - Ferramentas de Gamificação
-Incorporar elementos de gamificação, como sistemas de pontos, níveis e recompensas, para incentivar a participação dos alunos e tornar o processo de aprendizagem mais envolvente e divertido.
+    - Incorporar elementos de gamificação, como sistemas de pontos, níveis e recompensas, para incentivar a participação dos alunos e tornar o processo de aprendizagem mais envolvente e divertido.
 
 ## Personas
 
