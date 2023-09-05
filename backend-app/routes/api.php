@@ -21,13 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 /*
+ *  Default CRUD routes
  *
  * /api/{entity}/ => Route to list the entities
  * /api/{entity}/show/{id} => Route to show the entity details
  * /api/{entity}/store => Route to create a new entity
  * /api/{entity}/update/{id} => Route to update the entity
  * /api/{entity}/destroy/{id} => Route to delete the entity
- *
  *
  */
 
