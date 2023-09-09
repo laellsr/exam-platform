@@ -2,8 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExamIndexRequest;
+use App\Http\Requests\ExamRequest;
+use App\Http\Requests\ExamStorageRequest;
+use App\Http\Requests\ExamUpdateRequest;
 use App\Models\Exam;
 use App\Models\Question;
+use App\Models\User;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -11,33 +18,29 @@ class ExamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ExamIndexRequest $request)
     {
-        return response()->json(Exam::all(), 200);
+        $exams = Exam::where('user_id', $request->input('user_id'))->get();
+
+        return response()->json($exams, 200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-        //
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ExamStorageRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:300'
-        ]);
+        $exam = Exam::create($request->all());
 
-        $data = $request->all();
-
-        Exam::create($data);
-
-        return response()->json([], 201);
+        return response()->json($exam, 201);
     }
 
     /**
@@ -55,25 +58,19 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        //
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string|int $id, Request $request)
+    public function update(ExamUpdateRequest $request)
     {
-        $exam = Exam::find($id);
+        $exam = Exam::where('id', $request->input('exam_id'))
 
-        if (!isset($exam)) {
-           return response()->json([], 404);
-        }
+        ->update($request->except('exam_id'));
 
-        $exam->update($request->only([
-            'name'
-        ]));
-
-        return response()->json([], 200);
+        return response()->json($exam, 200);
     }
 
     /**
@@ -84,7 +81,7 @@ class ExamController extends Controller
         $exam = Exam::find($id);
 
         if (!isset($exam)) {
-           return response()->json([], 404);
+            throw new HttpResponseException(response()->json([], 404));
         }
 
         $exam->delete();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\QuestionRequest;
 use Illuminate\Http\Request;
 use App\Models\Question;
 
@@ -26,18 +27,9 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(QuestionRequest $request)
     {
-        $validatedData = $request->validate([
-            'text' => 'required',
-            'options' => 'required|array',
-            'correctAnswer' => 'required|string',
-            'difficulty' => 'required|string',
-            'category' => 'required|string',
-            'score' => 'required|numeric',
-        ]);
-
-        Question::create($validatedData);
+        Question::create($request->all());
 
         return response()->json(['message' => 'Pergunta criada com sucesso'], 201);
     }
@@ -45,9 +37,15 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Question $question)
+    public function show(string|int $id)
     {
-        // return view('questions.show', compact('question'));
+        $question = Question::find($id);
+
+        if (!isset($question)) {
+            return response()->json([], 404);
+        }
+
+        return response()->json($question, 200) : ;
     }
 
     /**
@@ -61,29 +59,33 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(string|int $id, QuestionRequest $request)
     {
-        $validatedData = $request->validate([
-            'text' => 'required',
-            'options' => 'required|array',
-            'correctAnswer' => 'required|string',
-            'difficulty' => 'required|string',
-            'category' => 'required|string',
-            'score' => 'required|numeric',
-        ]);
 
-        $question->update($validatedData);
+        $question = Question::find($id);
 
-        return response()->json(['message' => 'Pergunta atualizada com sucesso'], 200);
+        if (!isset($question)) {
+           return response()->json([], 404);
+        }
+
+        $question->update($request->all());
+
+        return response()->json(['message' => 'Questão atualizada com sucesso'], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Question $question)
+    public function destroy(string|int $id)
     {
+        $question = Question::find($id);
+
+        if (!isset($question)) {
+           return response()->json([], 404);
+        }
+
         $question->delete();
 
-        return response()->json(['message' => 'Pergunta excluída com sucesso'], 200);
+        return response()->json(['message' => 'Questão excluída com sucesso'], 200);
     }
 }
