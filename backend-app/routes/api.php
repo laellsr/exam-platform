@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionTypeController;
 
@@ -32,33 +33,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  *
  */
 
- Route::resource('exams', ExamController::class);
+ Route::resource('expertises', ExpertiseController::class);
 
-// Route::prefix('exams')->group(function () {
-//     Route::controller(ExamController::class)->group(function () {
-//         /** CRUD */
-//         Route::post('/', 'index');
-//         Route::get('show/{id}', 'show');
-//         Route::post('store', 'store');
-//         Route::put('update/{id}', 'update');
-//         Route::delete('destroy/{id}', 'destroy');
-//         /** Custom */
-//         Route::get('generate', 'generate');
-//     });
-// });
-
-Route::prefix('question_types')->group(function () {
-    Route::controller(QuestionTypeController::class)->group(function () {
+Route::prefix('exams')->group(function () {
+    Route::controller(ExamController::class)->group(function () {
         /** CRUD */
         Route::get('/', 'index');
-        // Route::get('show/{id}', 'show');
-        // Route::post('store', 'store');
-        // Route::put('update/{id}', 'update');
-        // Route::delete('destroy/{id}', 'destroy');
-        /** Custom */
-
+        Route::get('show', 'show');
+        Route::post('store', 'store');
+        Route::put('update', 'update');
+        Route::delete('destroy/{id}', 'destroy');
+        // /** Custom */
+        Route::get('generate', 'generate');
     });
 });
+
+// Route::prefix('question_types')->group(function () {
+//     Route::controller(QuestionTypeController::class)->group(function () {
+//         /** CRUD */
+//         Route::get('/', 'index');
+//         // Route::get('show/{id}', 'show');
+//         // Route::post('store', 'store');
+//         // Route::put('update/{id}', 'update');
+//         // Route::delete('destroy/{id}', 'destroy');
+//         /** Custom */
+
+//     });
+// });
 
 Route::controller(QuestionController::class)->group(function () {
     Route::get('/questions', 'index');

@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('version_options', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('question_version_id')->constrained('question_versions');
             $table->string('option');
             $table->timestamps();
+        });
+
+        Schema::table('question_versions', function (Blueprint $table) {
+            $table->foreignId('version_option_id')->nullable()->constrained('version_options'); // resposta
         });
     }
 

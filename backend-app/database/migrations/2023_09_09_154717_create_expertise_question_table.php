@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('question_versions', function (Blueprint $table) {
+        Schema::create('expertise_question', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_type_id')->constrained('question_types');
-            $table->foreignId('version_option_id')->constrained('version_options'); // resposta
-            $table->tinyInteger('level');
-            $table->text('description');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question_versions');
+        Schema::dropIfExists('expertise_question');
     }
 };

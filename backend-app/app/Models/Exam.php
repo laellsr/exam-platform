@@ -30,6 +30,11 @@ class Exam extends Model
 
     public function questions(): BelongsToMany
     {
-        return $this->belongsToMany(Question::class);
+        return $this->belongsToMany(Question::class, 'exam_question_version');
+    }
+
+    public function question_versions(): BelongsToMany
+    {
+        return $this->belongsToMany(QuestionVersion::class, 'exam_question_version');
     }
 }

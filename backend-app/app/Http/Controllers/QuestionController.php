@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QuestionRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\QuestionIndexRequest;
+use App\Http\Requests\QuestionShowRequest;
+use App\Http\Requests\QuestionStorageRequest;
+use App\Http\Requests\QuestionUpdateRequest;
 use App\Models\Question;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(QuestionIndexRequest $request)
     {
-        return response()->json(Question::all(), 200);
+        $questions = Question::where('user_id', $request->input('user_id'))->get();
+
+        return response()->json($questions, 200);
     }
 
     /**
@@ -21,31 +26,32 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        // return view('questions.create');
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(QuestionRequest $request)
+    public function store(QuestionStorageRequest $request)
     {
-        Question::create($request->all());
+        $question = Question::create($request->all());
 
-        return response()->json(['message' => 'Pergunta criada com sucesso'], 201);
+        return response()->json($question, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string|int $id)
+    public function show(QuestionShowRequest $request)
     {
-        $question = Question::find($id);
+        $question = Question::find($request->input('question_id'));
 
-        if (!isset($question)) {
-            return response()->json([], 404);
-        }
+        $versions = $question->versions()->get();
 
-        return response()->json($question, 200) : ;
+        return response()->json([
+            "question" => $question,
+            "versions" => $versions->all()
+        ], 200);
     }
 
     /**
@@ -53,24 +59,19 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        // return view('questions.edit', compact('question'));
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string|int $id, QuestionRequest $request)
+    public function update(QuestionUpdateRequest $request)
     {
+        $question = Question::where('id', $request->input('question_id'))
 
-        $question = Question::find($id);
+        ->update($request->except('question_id'));
 
-        if (!isset($question)) {
-           return response()->json([], 404);
-        }
-
-        $question->update($request->all());
-
-        return response()->json(['message' => 'Questão atualizada com sucesso'], 200);
+        return response()->json($question, 200);
     }
 
     /**
@@ -83,6 +84,10 @@ class QuestionController extends Controller
         if (!isset($question)) {
            return response()->json([], 404);
         }
+
+        $versions = $question->question_versions()->get();
+
+        $versions->delete();
 
         $question->delete();
 

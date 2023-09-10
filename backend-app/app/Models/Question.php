@@ -12,6 +12,8 @@ class Question extends Model
 {
     use HasFactory;
 
+    protected $table = 'questions';
+
     protected $fillable = [
         'user_id',
         'subject_id',
@@ -25,12 +27,7 @@ class Question extends Model
 
     public function exams(): BelongsToMany
     {
-        return $this->belongsToMany(Exam::class);
-    }
-
-    public function question_versions(): HasMany
-    {
-        return $this->hasMany(QuestionVersion::class);
+        return $this->belongsToMany(Exam::class, 'exam_version_question');
     }
 
     public function expertises(): BelongsToMany
@@ -38,4 +35,8 @@ class Question extends Model
         return $this->belongsToMany(Expertise::class);
     }
 
+    public function versions(): HasMany
+    {
+        return $this->hasMany(QuestionVersion::class);
+    }
 }

@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Subject extends Model
+class ExamQuestionVersion extends Model
 {
     use HasFactory;
 
+    protected $table = 'exam_question_version';
+
     protected $fillable = [
-        'name'
+        'exam_id',
+        'question_id',
+        'question_version_id'
     ];
 }

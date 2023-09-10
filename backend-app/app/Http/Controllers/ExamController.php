@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ExamGenerateRequest;
 use App\Http\Requests\ExamIndexRequest;
-use App\Http\Requests\ExamRequest;
+use App\Http\Requests\ExamShowRequest;
 use App\Http\Requests\ExamStorageRequest;
 use App\Http\Requests\ExamUpdateRequest;
 use App\Models\Exam;
 use App\Models\Question;
-use App\Models\User;
+use App\Models\Subject;
 use Illuminate\Http\Exceptions\HttpResponseException;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
 
 class ExamController extends Controller
 {
@@ -46,11 +46,17 @@ class ExamController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string|int $id)
+    public function show(ExamShowRequest $request)
     {
+        $id = (int) $request->input('exam_id');
+
         $exam = Exam::find($id);
 
-        return (isset($exam)) ? response()->json($exam, 200) : response()->json([], 404);
+        $questions = $exam->question_versions()->get();
+
+        $exam['questions'] = $questions;
+
+        return response()->json($exam, 200);
     }
 
     /**
@@ -92,12 +98,17 @@ class ExamController extends Controller
     /**
      * Generate a random exam
      */
-    public function generate()
+    public function generate(ExamGenerateRequest $request)
     {
-        $questions = Question::all();
+        $questions = Question::where(['subject_id' => $request->input('subject_id')])->get();
+        // foreach ($questions as $question) {
+        //     # code...
+        // }
+        return response()->json($questions);
+        // $questions = Question::all();
 
-        if (empty($questions)) {
-            return response()->json(['Não existem questões para gerar uma nova prova'], 406);
-        }
+        // if (empty($questions)) {
+        //     return response()->json(['Não existem questões para gerar uma nova prova'], 406);
+        // }
     }
 }
