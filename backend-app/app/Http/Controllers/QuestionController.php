@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Question\QuestionIndexRequest;
+use App\Http\Requests\Question\QuestionShowRequest;
+use App\Http\Requests\Question\QuestionStorageRequest;
+use App\Http\Requests\Question\QuestionUpdateRequest;
 use App\Models\Question;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(QuestionIndexRequest $request)
     {
-        return response()->json(Question::all(), 200);
+        $questions = Question::where('user_id', $request->input('user_id'))->get();
+
+        return response()->json($questions, 200);
     }
 
     /**
@@ -20,34 +26,32 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        // return view('questions.create');
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(QuestionStorageRequest $request)
     {
-        $validatedData = $request->validate([
-            'text' => 'required',
-            'options' => 'required|array',
-            'correctAnswer' => 'required|string',
-            'difficulty' => 'required|string',
-            'category' => 'required|string',
-            'score' => 'required|numeric',
-        ]);
+        $question = Question::create($request->all());
 
-        Question::create($validatedData);
-
-        return response()->json(['message' => 'Pergunta criada com sucesso'], 201);
+        return response()->json($question, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Question $question)
+    public function show(QuestionShowRequest $request)
     {
-        // return view('questions.show', compact('question'));
+        $question = Question::find($request->input('question_id'));
+
+        $versions = $question->versions()->get();
+
+        return response()->json([
+            "question" => $question,
+            "versions" => $versions->all()
+        ], 200);
     }
 
     /**
@@ -55,35 +59,38 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        // return view('questions.edit', compact('question'));
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionUpdateRequest $request)
     {
-        $validatedData = $request->validate([
-            'text' => 'required',
-            'options' => 'required|array',
-            'correctAnswer' => 'required|string',
-            'difficulty' => 'required|string',
-            'category' => 'required|string',
-            'score' => 'required|numeric',
-        ]);
+        $question = Question::where('id', $request->input('question_id'))
 
-        $question->update($validatedData);
+        ->update($request->except('question_id'));
 
-        return response()->json(['message' => 'Pergunta atualizada com sucesso'], 200);
+        return response()->json($question, 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Question $question)
+    public function destroy(string|int $id)
     {
+        $question = Question::find($id);
+
+        if (!isset($question)) {
+           return response()->json([], 404);
+        }
+
+        $versions = $question->question_versions()->get();
+
+        $versions->delete();
+
         $question->delete();
 
-        return response()->json(['message' => 'Pergunta excluída com sucesso'], 200);
+        return response()->json(['message' => 'Questão excluída com sucesso'], 200);
     }
 }

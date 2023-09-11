@@ -2,52 +2,59 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Exam\ExamGenerateRequest;
+use App\Http\Requests\Exam\ExamIndexRequest;
+use App\Http\Requests\Exam\ExamShowRequest;
+use App\Http\Requests\Exam\ExamStorageRequest;
+use App\Http\Requests\Exam\ExamUpdateRequest;
 use App\Models\Exam;
 use App\Models\Question;
-use Illuminate\Http\Request;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ExamController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ExamIndexRequest $request)
     {
-        return response()->json(Exam::all(), 200);
+        $exams = Exam::where('user_id', $request->input('user_id'))->get();
+
+        return response()->json($exams, 200);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+    public function create()
     {
-        //
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ExamStorageRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:300'
-        ]);
+        $exam = Exam::create($request->all());
 
-        $data = $request->all();
-
-        Exam::create($data);
-
-        return response()->json([], 201);
+        return response()->json($exam, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string|int $id)
+    public function show(ExamShowRequest $request)
     {
+        $id = (int) $request->input('exam_id');
+
         $exam = Exam::find($id);
 
-        return (isset($exam)) ? response()->json($exam, 200) : response()->json([], 404);
+        $questions = $exam->question_versions()->get();
+
+        $exam['questions'] = $questions;
+
+        return response()->json($exam, 200);
     }
 
     /**
@@ -55,25 +62,19 @@ class ExamController extends Controller
      */
     public function edit(Exam $exam)
     {
-        //
+        throw new HttpResponseException(response()->json([], 501));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(string|int $id, Request $request)
+    public function update(ExamUpdateRequest $request)
     {
-        $exam = Exam::find($id);
+        $exam = Exam::where('id', $request->input('exam_id'))
 
-        if (!isset($exam)) {
-           return response()->json([], 404);
-        }
+        ->update($request->except('exam_id'));
 
-        $exam->update($request->only([
-            'name'
-        ]));
-
-        return response()->json([], 200);
+        return response()->json($exam, 200);
     }
 
     /**
@@ -84,7 +85,7 @@ class ExamController extends Controller
         $exam = Exam::find($id);
 
         if (!isset($exam)) {
-           return response()->json([], 404);
+            throw new HttpResponseException(response()->json([], 404));
         }
 
         $exam->delete();
@@ -95,12 +96,17 @@ class ExamController extends Controller
     /**
      * Generate a random exam
      */
-    public function generate()
+    public function generate(ExamGenerateRequest $request)
     {
-        $questions = Question::all();
+        $questions = Question::where(['subject_id' => $request->input('subject_id')])->get();
+        // foreach ($questions as $question) {
+        //     # code...
+        // }
+        return response()->json($questions);
+        // $questions = Question::all();
 
-        if (empty($questions)) {
-            return response()->json(['Não existem questões para gerar uma nova prova'], 406);
-        }
+        // if (empty($questions)) {
+        //     return response()->json(['Não existem questões para gerar uma nova prova'], 406);
+        // }
     }
 }
