@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Question;
 
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Exceptions\HttpResponseException;
 
-class QuestionShowRequest extends FormRequest
+class QuestionUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +22,10 @@ class QuestionShowRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'question_id' => 'required|exists:questions,id'
+            'question_id' => 'required|exists:questions,id',
+            'user_id' => 'required|exists:users,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'name' => 'required|string'
         ];
-    }
-
-    protected function failedValidation(Validator $validator)
-    {
-        throw new HttpResponseException(response()->json([
-            'errors' => $validator->errors(),
-        ], 404));
     }
 }

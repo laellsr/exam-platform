@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Exam;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class QuestionUpdateRequest extends FormRequest
+class ExamUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +24,18 @@ class QuestionUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'question_id' => 'required|exists:questions,id',
+            'exam_id' => 'required|exists:exams,id',
             'user_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id',
             'name' => 'required|string'
         ];
     }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+        ], 404));
+    }
+
 }

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ExamGenerateRequest;
-use App\Http\Requests\ExamIndexRequest;
-use App\Http\Requests\ExamShowRequest;
-use App\Http\Requests\ExamStorageRequest;
-use App\Http\Requests\ExamUpdateRequest;
+use App\Http\Requests\Exam\ExamGenerateRequest;
+use App\Http\Requests\Exam\ExamIndexRequest;
+use App\Http\Requests\Exam\ExamShowRequest;
+use App\Http\Requests\Exam\ExamStorageRequest;
+use App\Http\Requests\Exam\ExamUpdateRequest;
 use App\Models\Exam;
 use App\Models\Question;
-use App\Models\Subject;
 use Illuminate\Http\Exceptions\HttpResponseException;
-
 
 class ExamController extends Controller
 {

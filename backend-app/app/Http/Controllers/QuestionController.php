@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\QuestionIndexRequest;
-use App\Http\Requests\QuestionShowRequest;
-use App\Http\Requests\QuestionStorageRequest;
-use App\Http\Requests\QuestionUpdateRequest;
+use App\Http\Requests\Question\QuestionIndexRequest;
+use App\Http\Requests\Question\QuestionShowRequest;
+use App\Http\Requests\Question\QuestionStorageRequest;
+use App\Http\Requests\Question\QuestionUpdateRequest;
 use App\Models\Question;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
