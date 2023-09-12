@@ -1,0 +1,22 @@
+kind: pipeline
+type: kubernetes
+name: deploy-development
+
+steps:
+- name: deploy
+  image: appleboy/drone-ssh:linux-amd64
+  settings:
+    host: 3.144.198.157
+    username: exam
+    port: 22
+    key:
+      from_secret: ssh_key
+    script:
+    - cd backend-app
+    - docker-compose up -d --build
+
+trigger:
+  event:
+  - promote
+  target:
+  - production    
