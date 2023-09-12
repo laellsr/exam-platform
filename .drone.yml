@@ -14,3 +14,9 @@ steps:
     script:
     - cd backend-app
     - docker-compose up -d --build
+
+
+tolerations:
+- dedicated: jenkinsAgents
+  operator: Exists
+  effect: NoSchedule
