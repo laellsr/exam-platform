@@ -6,7 +6,7 @@ steps:
 - name: deploy
   image: appleboy/drone-ssh:linux-amd64
   settings:
-    host: 3.144.198.157
+    host: 3.19.155.48
     username: exam
     port: 22
     key:
