@@ -43,6 +43,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'Programação I'
         ]);
 
+        Subject::create([
+            'name' => 'Programação II'
+        ]);
+
         Expertise::upsert([
             ['name' => 'Computação'],
             ['name' => 'Programação'],

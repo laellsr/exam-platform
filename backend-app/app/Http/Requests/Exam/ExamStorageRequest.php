@@ -26,7 +26,13 @@ class ExamStorageRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id',
-            'name' => 'required|string'
+            'name' => 'required|string',
+            'questions' => 'array',
+            'questions.*.name' => 'required_with:questions|string',
+            'questions.*.versions' => 'required_with:questions|array',
+            'questions.*.versions.*.question_type_id' => 'required_with:questions.*.versions|exists:question_types,id',
+            'questions.*.versions.*.level' => 'required_with:questions.*.versions|integer|between:1,5',
+            'questions.*.versions.*.description' => 'required_with:questions.*.versions|string',
         ];
     }
 

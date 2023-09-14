@@ -26,14 +26,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  *  Default CRUD routes
  *
  * /api/{entity}/ => Route to list the entities
- * /api/{entity}/show/{id} => Route to show the entity details
+ * /api/{entity}/show/ => Route to show the entity details
  * /api/{entity}/store => Route to create a new entity
- * /api/{entity}/update/{id} => Route to update the entity
+ * /api/{entity}/update/ => Route to update the entity
  * /api/{entity}/destroy/{id} => Route to delete the entity
  *
  */
-
- Route::resource('expertises', ExpertiseController::class);
 
 Route::prefix('exams')->group(function () {
     Route::controller(ExamController::class)->group(function () {
@@ -48,22 +46,27 @@ Route::prefix('exams')->group(function () {
     });
 });
 
-// Route::prefix('question_types')->group(function () {
-//     Route::controller(QuestionTypeController::class)->group(function () {
-//         /** CRUD */
-//         Route::get('/', 'index');
-//         // Route::get('show/{id}', 'show');
-//         // Route::post('store', 'store');
-//         // Route::put('update/{id}', 'update');
-//         // Route::delete('destroy/{id}', 'destroy');
-//         /** Custom */
-
-//     });
-// });
-
-Route::controller(QuestionController::class)->group(function () {
-    Route::get('/questions', 'index');
-    Route::post('/questions/store', 'store');
-    // Route::post('/questions/store', 'store');
+Route::prefix('questions')->group(function () {
+    Route::controller(QuestionController::class)->group(function () {
+        /** CRUD */
+        Route::get('/', 'index');
+        Route::get('show', 'show');
+        Route::post('store', 'store');
+        Route::put('update', 'update');
+        Route::delete('destroy/{id}', 'destroy');
+    });
 });
+
+Route::prefix('question/version')->group(function () {
+    Route::controller(QuestionTypeController::class)->group(function () {
+        /** CRUD */
+        // Route::get('/', 'index');
+        // Route::get('show', 'show');
+        // Route::post('store', 'store');
+        // Route::put('update', 'update');
+        // Route::delete('destroy/{id}', 'destroy');
+    });
+});
+
+
 
