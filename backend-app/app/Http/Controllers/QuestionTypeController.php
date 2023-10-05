@@ -12,7 +12,7 @@ class QuestionTypeController extends Controller
      */
     public function index()
     {
-        return response()->json(QuestionType::all(), 200);
+        return response()->json(QuestionType::select(['id', 'name'])->get(), 200);
     }
 
     /**

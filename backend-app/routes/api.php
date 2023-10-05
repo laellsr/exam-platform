@@ -6,6 +6,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionTypeController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,10 +58,10 @@ Route::prefix('questions')->group(function () {
     });
 });
 
-Route::prefix('question/version')->group(function () {
+Route::prefix('types')->group(function () {
     Route::controller(QuestionTypeController::class)->group(function () {
         /** CRUD */
-        // Route::get('/', 'index');
+        Route::get('/', 'index');
         // Route::get('show', 'show');
         // Route::post('store', 'store');
         // Route::put('update', 'update');
@@ -68,5 +69,25 @@ Route::prefix('question/version')->group(function () {
     });
 });
 
+Route::prefix('subjects')->group(function () {
+    Route::controller(SubjectController::class)->group(function () {
+        /** CRUD */
+        Route::get('/', 'index');
+        // Route::get('show', 'show');
+        // Route::post('store', 'store');
+        // Route::put('update', 'update');
+        // Route::delete('destroy/{id}', 'destroy');
+    });
+});
 
+Route::prefix('expertises')->group(function () {
+    Route::controller(ExpertiseController::class)->group(function () {
+        /** CRUD */
+        Route::get('/', 'index');
+        // Route::get('show', 'show');
+        // Route::post('store', 'store');
+        // Route::put('update', 'update');
+        // Route::delete('destroy/{id}', 'destroy');
+    });
+});
 
