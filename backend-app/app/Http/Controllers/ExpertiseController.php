@@ -12,7 +12,7 @@ class ExpertiseController extends Controller
      */
     public function index()
     {
-        return response()->json(Expertise::all());
+        return response()->json(Expertise::select(['id', 'name'])->get());
     }
 
     /**

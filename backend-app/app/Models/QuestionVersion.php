@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,6 +16,7 @@ class QuestionVersion extends Model
     protected $table = 'question_versions';
 
     protected $fillable = [
+        'question_id',
         'question_type_id',
         'version_option_id',
         'level',
@@ -23,12 +25,12 @@ class QuestionVersion extends Model
 
     public function exams(): BelongsToMany
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(Exam::class, 'exam_question_version');
     }
 
-    public function questions(): BelongsToMany
+    public function question(): BelongsTo
     {
-        return $this->belongsToMany(Question::class);
+        return $this->belongsTo(Question::class);
     }
 
     public function question_options(): BelongsToMany

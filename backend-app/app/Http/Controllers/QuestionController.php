@@ -7,6 +7,7 @@ use App\Http\Requests\Question\QuestionShowRequest;
 use App\Http\Requests\Question\QuestionStorageRequest;
 use App\Http\Requests\Question\QuestionUpdateRequest;
 use App\Models\Question;
+use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 class QuestionController extends Controller
@@ -16,9 +17,15 @@ class QuestionController extends Controller
      */
     public function index(QuestionIndexRequest $request)
     {
-        $questions = Question::where('user_id', $request->input('user_id'))->get();
+        $user = User::where('id', $request->user_id)->with(['questions'])->get();
 
-        return response()->json($questions, 200);
+        $user_questions = $user[0]->questions;
+
+        $grouped_questions = $user_questions->groupBy(function ($question) {
+            return $question->subject->name;
+        });
+
+        return response()->json($grouped_questions);
     }
 
     /**
