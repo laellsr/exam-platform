@@ -17,16 +17,20 @@ class QuestionController extends Controller
      */
     public function index(QuestionIndexRequest $request)
     {
-        $user = User::where('id', $request->user_id)
-        ->with(['questions'])->get();
+        $questions = Question::where('user_id', $request->user_id)
+        ->select('description', '')
+        ->get();
 
-        $user_questions = $user[0]->questions;
+        // $user = User::where('id', $request->user_id)
+        // ->with(['questions'])->get();
 
-        $grouped_questions = $user_questions->groupBy(function ($question) {
-            return $question->subject->name;
-        });
+        // $user_questions = $user[0]->questions;
 
-        return response()->json($grouped_questions);
+        // $grouped_questions = $user_questions->groupBy(function ($question) {
+        //     return $question->subject->name;
+        // });
+
+        return response()->json($questions);
     }
 
     /**
@@ -92,10 +96,6 @@ class QuestionController extends Controller
         if (!isset($question)) {
            return response()->json([], 404);
         }
-
-        $versions = $question->question_versions()->get();
-
-        $versions->delete();
 
         $question->delete();
 
