@@ -28,7 +28,7 @@ class QuestionStorageRequest extends FormRequest
             'subject_id' => 'required|exists:subjects,id',
             'question_type_id' => 'required|exists:question_types,id',
             'description' => 'required|string',
-            'options' => 'required_if:question_type_id,>,1|json',
+            'options' => 'required_if:question_type_id,>,2|json',
             'answer' => 'required_with:options|string',
             'level' => 'required|integer|between:1,5'
         ];

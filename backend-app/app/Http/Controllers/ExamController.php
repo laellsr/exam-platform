@@ -8,10 +8,7 @@ use App\Http\Requests\Exam\ExamShowRequest;
 use App\Http\Requests\Exam\ExamStorageRequest;
 use App\Http\Requests\Exam\ExamUpdateRequest;
 use App\Models\Exam;
-use App\Models\ExamQuestionVersion;
 use App\Models\Question;
-use App\Models\QuestionType;
-use App\Models\QuestionVersion;
 use App\Models\Subject;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
