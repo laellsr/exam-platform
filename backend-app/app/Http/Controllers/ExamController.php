@@ -58,40 +58,21 @@ class ExamController extends Controller
                 $question = Question::create([
                     'user_id' => $exam->user_id,
                     'subject_id' => $exam->subject_id,
-                    'name' => $new_question['name']
+                    'question_type_id' => $new_question['question_type_id'],
+                    'description' => $new_question['description'],
+                    'options' => $new_question['options'],
+                    'answer' => $new_question['answer'],
+                    'level' => $new_question['level'],
                 ]);
 
                 $data['questions'][] = [
                     'id' => $question->id,
-                    'name' => $question->name
+                    'question_type_id' => $question->question_type_id,
+                    'description' => $question->description,
+                    'options' => $question->options,
+                    'answer' => $question->answer,
+                    'level' => $question->level,
                 ];
-
-                if (!empty($new_question['versions'])) {
-
-                    foreach ($new_question['versions'] as $new_version) {
-
-                        $version = QuestionVersion::create([
-                            'question_id' => $question->id,
-                            'question_type_id' => $new_version['question_type_id'],
-                            'level' => $new_version['level'],
-                            'description' => $new_version['description'],
-                        ]);
-
-                        $data['questions'][sizeof($data['questions'])-1]['versions'][] = [
-                            'id' => $version->id,
-                            'level' => $version->level,
-                            'question_type_id' => $version->question_type_id,
-                            'question_type' => QuestionType::find($version->question_type_id)->name,
-                            'description' => $version->description,
-                        ];
-
-                        ExamQuestionVersion::create([
-                            'exam_id' => $exam->id,
-                            'question_id' => $question->id,
-                            'question_version_id' => $version->id,
-                        ]);
-                    }
-                }
             }
         }
 

@@ -15,11 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('subject_id')->constrained('subjects');
-            $table->string('name');
+            $table->foreignId('question_type_id')->constrained('question_types');
+            $table->text('description');
+            $table->json('options');
+            $table->string('answer');
+            $table->tinyInteger('level');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

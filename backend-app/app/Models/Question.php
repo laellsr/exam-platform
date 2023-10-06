@@ -17,7 +17,11 @@ class Question extends Model
     protected $fillable = [
         'user_id',
         'subject_id',
-        'name'
+        'question_type_id',
+        'description',
+        'options',
+        'answer',
+        'level'
     ];
 
     public function user(): BelongsTo
@@ -32,16 +36,11 @@ class Question extends Model
 
     public function exams(): BelongsToMany
     {
-        return $this->belongsToMany(Exam::class, 'exam_version_question');
+        return $this->belongsToMany(Exam::class);
     }
 
     public function expertises(): BelongsToMany
     {
         return $this->belongsToMany(Expertise::class);
-    }
-
-    public function versions(): HasMany
-    {
-        return $this->hasMany(QuestionVersion::class);
     }
 }

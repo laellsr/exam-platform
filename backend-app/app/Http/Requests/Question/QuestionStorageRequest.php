@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests\Question;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class QuestionStorageRequest extends FormRequest
 {
@@ -24,7 +26,18 @@ class QuestionStorageRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'subject_id' => 'required|exists:subjects,id',
-            'name' => 'required|string'
+            'question_type_id' => 'required|exists:question_types,id',
+            'description' => 'required|string',
+            'options' => 'required_if:question_type_id,>,1|json',
+            'answer' => 'required_with:options|string',
+            'level' => 'required|integer|between:1,5'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors(),
+        ], 404));
     }
 }

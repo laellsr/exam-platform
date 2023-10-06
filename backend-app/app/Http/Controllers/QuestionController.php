@@ -17,7 +17,8 @@ class QuestionController extends Controller
      */
     public function index(QuestionIndexRequest $request)
     {
-        $user = User::where('id', $request->user_id)->with(['questions'])->get();
+        $user = User::where('id', $request->user_id)
+        ->with(['questions'])->get();
 
         $user_questions = $user[0]->questions;
 
