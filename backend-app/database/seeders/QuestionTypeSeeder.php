@@ -15,7 +15,8 @@ class QuestionTypeSeeder extends Seeder
     {
         DB::table('question_types')->insert([
             ['name' => 'Aberta'],
-            ['name' => 'Múltipla Escolha']
+            ['name' => 'Múltipla Escolha'],
+            ['name' => 'Verdadeiro ou Falso']
         ]);
     }
 }
