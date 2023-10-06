@@ -12,7 +12,8 @@ steps:
     context: ./backend-app/vendor/laravel/sail/runtimes/8.2
     dockerfile: ./backend-app/vendor/laravel/sail/runtimes/8.2/Dockerfile
     build_args:
-      - WWWGROUP: 1000
+      - WWWGROUP=1000
+      - WWWUSER=1000
     tags:
       - backend
 
