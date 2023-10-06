@@ -11,6 +11,8 @@ steps:
     region: us-east-2
     context: ./backend-app/vendor/laravel/sail/runtimes/8.2
     dockerfile: ./backend-app/vendor/laravel/sail/runtimes/8.2/Dockerfile
+    build_args:
+      - WWWGROUP: "${WWWGROUP}"
     tags:
       - backend
 
