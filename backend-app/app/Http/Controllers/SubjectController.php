@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Subject\SubjectStoreResquest;
 use App\Models\Subject;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -26,9 +28,11 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubjectStoreResquest $request)
     {
-        //
+        $subject = Subject::create($request->all());
+
+        return response()->json($subject, 201);
     }
 
     /**
@@ -58,8 +62,16 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Subject $subject)
+    public function destroy(string|int $id)
     {
-        //
+        $subject = Subject::find($id);
+
+        if (!isset($subject)) {
+            throw new HttpResponseException(response()->json([], 404));
+        }
+
+        $subject->delete();
+
+        return response()->json([], 200);
     }
 }

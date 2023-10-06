@@ -74,9 +74,9 @@ Route::prefix('subjects')->group(function () {
         /** CRUD */
         Route::get('/', 'index');
         // Route::get('show', 'show');
-        // Route::post('store', 'store');
+        Route::post('store', 'store');
         // Route::put('update', 'update');
-        // Route::delete('destroy/{id}', 'destroy');
+        Route::delete('destroy/{id}', 'destroy');
     });
 });
 

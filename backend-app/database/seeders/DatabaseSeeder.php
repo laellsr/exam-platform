@@ -5,13 +5,10 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Exam;
-use App\Models\ExamQuestionVersion;
 use App\Models\Expertise;
 use App\Models\Question;
-use App\Models\QuestionVersion;
 use App\Models\Subject;
 use App\Models\User;
-use App\Models\VersionOption;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
