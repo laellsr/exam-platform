@@ -62,6 +62,8 @@ class ExamController extends Controller
                     'level' => $new_question['level'],
                 ]);
 
+                $exam->questions()->attach($question);
+
                 $data['questions'][] = [
                     'id' => $question->id,
                     'question_type_id' => $question->question_type_id,
@@ -85,7 +87,7 @@ class ExamController extends Controller
 
         $exam = Exam::find($id);
 
-        $questions = $exam->question_versions()->get();
+        $questions = $exam->questions()->get();
 
         $exam['questions'] = $questions;
 
