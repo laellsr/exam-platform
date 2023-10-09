@@ -87,7 +87,9 @@ class ExamController extends Controller
 
         $exam = Exam::find($id);
 
-        $questions = $exam->questions()->get();
+        $questions = $exam->questions()
+        ->with(['subject:id,name', 'user:id,name'])
+        ->get();
 
         $exam['questions'] = $questions;
 
