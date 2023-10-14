@@ -146,6 +146,7 @@ class ExamController extends Controller
 
         $exam->questions()->attach($questions);
 
+        $exam['message'] = 'Prova gerada com sucesso para a disciplina #' . $exam->subject->name .'!';
         $exam['user_name'] = $exam->user->name;
         $exam['subject_name'] = $exam->subject->name;
         $exam['questions'] = $questions;

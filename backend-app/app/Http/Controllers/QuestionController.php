@@ -56,7 +56,8 @@ class QuestionController extends Controller
 
         return response()->json([
             'message' => 'Questão criada com sucesso!',
-            $question], 201);
+            'question_id' => $question->id
+        ], 201);
     }
 
     /**

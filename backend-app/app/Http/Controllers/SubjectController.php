@@ -32,7 +32,10 @@ class SubjectController extends Controller
     {
         $subject = Subject::create($request->all());
 
-        return response()->json($subject, 201);
+        return response()->json([
+            'message' => 'Disciplina criada com sucesso!',
+            'subject_id' => $subject->id
+        ], 201);
     }
 
     /**
