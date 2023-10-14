@@ -23,9 +23,9 @@ class Exam extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function subject(): HasOne
+    public function subject(): BelongsTo
     {
-        return $this->hasOne(Subject::class);
+        return $this->belongsTo(Subject::class);
     }
 
     public function questions(): BelongsToMany

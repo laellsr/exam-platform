@@ -24,6 +24,7 @@ class QuestionShowRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'user_id' => 'required|exists:users,id',
             'question_id' => 'required|exists:questions,id'
         ];
     }

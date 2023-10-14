@@ -40,14 +40,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Programação I'
         ]);
 
-        // Subject::create([
-        //     'name' => 'Programação II'
-        // ]);
+        Subject::create([
+            'name' => 'Programação II'
+        ]);
 
-        // Expertise::upsert([
-        //     ['name' => 'Computação'],
-        //     ['name' => 'Programação'],
-        // ], ['name']);
+        Expertise::upsert([
+            ['name' => 'Computação'],
+            ['name' => 'Programação'],
+        ], ['name']);
 
         // Exam::create([
         //     'user_id' => 1,

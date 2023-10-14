@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('question_type_id')->constrained('question_types');
             $table->text('description');
-            $table->json('options');
-            $table->string('answer');
+            $table->json('options')->nullable();
+            $table->string('answer')->nullable();
             $table->tinyInteger('level');
             $table->timestamps();
         });

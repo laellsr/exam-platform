@@ -24,7 +24,9 @@ class ExamGenerateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'subject_id' => 'required|exists:subjects,id'
+            'user_id' => 'required|exists:users,id',
+            'subject_id' => 'required|exists:subjects,id',
+            'questions_number' => 'required|integer'
         ];
     }
 

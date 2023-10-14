@@ -22,6 +22,11 @@ class QuestionController extends Controller
         ->with(['subject:id,name', 'user:id,name'])
         ->get();
 
+        // foreach ($questions as $key => $value) {
+        //     $questions[$key]['subject_name'] = $value->subject->name;
+        //     $questions[$key]['user_name'] = $value->user->name;
+        // }
+
         // $user = User::where('id', $request->user_id)
         // ->with(['questions'])->get();
 
@@ -49,7 +54,9 @@ class QuestionController extends Controller
     {
         $question = Question::create($request->all());
 
-        return response()->json($question, 201);
+        return response()->json([
+            'message' => 'Questão criada com sucesso!',
+            $question], 201);
     }
 
     /**
@@ -57,14 +64,10 @@ class QuestionController extends Controller
      */
     public function show(QuestionShowRequest $request)
     {
-        $question = Question::find($request->input('question_id'));
+        $question = Question::find($request->question_id);
+        $question['subject_name'] = $question->subject->name;
 
-        $versions = $question->versions()->get();
-
-        return response()->json([
-            "question" => $question,
-            "versions" => $versions->all()
-        ], 200);
+        return response()->json([$question], 200);
     }
 
     /**
@@ -80,7 +83,7 @@ class QuestionController extends Controller
      */
     public function update(QuestionUpdateRequest $request)
     {
-        $question = Question::where('id', $request->input('question_id'))
+        $question = Question::where('id', $request->question_id)
 
         ->update($request->except('question_id'));
 
