@@ -36,6 +36,12 @@ class DatabaseSeeder extends Seeder
             'password' => 'password'
         ]);
 
+        User::create([
+            'name' => 'student',
+            'email' => 'student@email.com',
+            'password' => 'password'
+        ]);
+
         Subject::create([
             'name' => 'Programação I'
         ]);

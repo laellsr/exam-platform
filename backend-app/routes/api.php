@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExamController;
@@ -37,24 +38,35 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('exams')->group(function () {
     Route::controller(ExamController::class)->group(function () {
         /** CRUD */
-        Route::get('/', 'index');
-        Route::get('show', 'show');
+        Route::post('/', 'index');
+        Route::post('show', 'show');
         Route::post('store', 'store');
         Route::put('update', 'update');
         Route::delete('destroy/{id}', 'destroy');
         // /** Custom */
-        Route::get('generate', 'generate');
+        Route::post('generate', 'generate');
     });
 });
 
 Route::prefix('questions')->group(function () {
     Route::controller(QuestionController::class)->group(function () {
         /** CRUD */
-        Route::get('/', 'index');
-        Route::get('show', 'show');
+        Route::post('/', 'index');
+        Route::post('show', 'show');
         Route::post('store', 'store');
         Route::put('update', 'update');
         Route::delete('destroy/{id}', 'destroy');
+    });
+});
+
+Route::prefix('answers')->group(function () {
+    Route::controller(AnswerController::class)->group(function () {
+        /** CRUD */
+        Route::get('/', 'index');
+        Route::get('show', 'show');
+        Route::post('store', 'store');
+        // Route::put('update', 'update');
+        // Route::delete('destroy/{id}', 'destroy');
     });
 });
 
