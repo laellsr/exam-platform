@@ -28,11 +28,13 @@ class ExamStorageRequest extends FormRequest
             'subject_id' => 'required|exists:subjects,id',
             'name' => 'required|string',
             'questions' => 'array',
-            'questions.*.question_type_id' => 'required_with:questions|exists:question_types,id',
-            'questions.*.description' => 'required_with:questions|string',
-            'questions.*.options' => 'required_if:questions.*.question_type_id,>,2|json',
-            'questions.*.answer' => 'required_with:questions.*.options|string',
-            'questions.*.level' => 'required_with:questions|integer|between:1,5'
+            'questions.*.id' => 'sometimes|required|integer|exists:questions,id',
+            'questions.*' => 'required_without:questions.*.id',
+            'questions.*.question_type_id' => 'required_without:questions.*.id|exists:question_types,id',
+            'questions.*.description' => 'required_without:questions.*.id|string',
+            'questions.*.options' => 'required_without:questions.*.id|required_if:questions.*.question_type_id,>,2|json',
+            'questions.*.answer' => 'required_without:questions.*.id|required_with:questions.*.options|string',
+            'questions.*.level' => 'required_without:questions.*.id|integer|between:1,5'
         ];
     }
 

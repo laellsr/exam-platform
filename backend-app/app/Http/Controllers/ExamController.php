@@ -54,6 +54,12 @@ class ExamController extends Controller
 
             foreach ($request->questions as $new_question)
             {
+                if (!empty($new_question['id'])) {
+                    // a existing question
+                    $exam->questions()->attach($new_question['id']);
+                    continue;
+                }
+
                 $new_question['user_id'] = $exam->user_id;
                 $new_question['subject_id'] = $exam->subject_id;
 
@@ -67,7 +73,7 @@ class ExamController extends Controller
                 $exam->questions()->attach($question);
             }
         }
-        // return response()->json($data, 201);
+
         return response()->json([
             'message' => 'Prova criada com sucesso!',
             'exam_id' => $exam->id
