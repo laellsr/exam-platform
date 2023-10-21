@@ -16,3 +16,5 @@ COPY --from=build /usr/bin/composer /usr/bin/composer
 RUN composer install --prefer-dist --no-interaction
 
 CMD ["php","artisan","serve","--host=0.0.0.0"]
+
+RUN php artisan migrate:fresh --seed
