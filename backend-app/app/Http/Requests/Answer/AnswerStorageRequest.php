@@ -11,7 +11,7 @@ class AnswerStorageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class AnswerStorageRequest extends FormRequest
             'exam_id' => 'required|exists:exams,id',
             'answers' => 'required|array',
             'answers.*.question_id' => 'required|exists:questions,id',
-            'answers.*.answer' => 'sometimes|text',
+            'answers.*.answer' => 'sometimes|string',
         ];
     }
 }

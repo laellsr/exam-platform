@@ -21,17 +21,17 @@ class ExamController extends Controller
      */
     public function index(ExamIndexRequest $request)
     {
-        $exams = Exam::
-        select('id', 'user_id', 'subject_id', 'name', 'created_at')
-        ->where('user_id', $request->input('user_id'))
+        // $exams = Exam::
+        // select('id', 'user_id', 'subject_id', 'name', 'created_at')
+        // ->where('user_id', $request->input('user_id'))
+        // ->get();
+
+        $exams = Exam::join('subjects', 'exams.subject_id', '=', 'subjects.id')
+        ->where('exams.user_id', $request->user_id)
+        ->select('exams.id', 'subjects.name as subject_name', 'exams.user_id', 'exams.subject_id', 'exams.name', 'exams.created_at')
         ->get();
 
         return response()->json($exams, 200);
-
-        $questions = Question::join('subjects', 'questions.subject_id', '=', 'subjects.id')
-        ->where('questions.user_id', $request->user_id)
-        ->select('questions.id', 'subjects.nome as nome_do_assunto', 'questions.description', 'questions.options', 'questions.answer', 'questions.level')
-        ->get();
 
     }
 
@@ -131,7 +131,7 @@ class ExamController extends Controller
 
         $exam->delete();
 
-        return response()->json([], 200);
+        return response()->json(['message', 'Prova excluida com sucesso!'], 200);
     }
 
     /**
