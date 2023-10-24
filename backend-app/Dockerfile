@@ -15,5 +15,7 @@ COPY . /var/www/html/
 COPY --from=build /usr/bin/composer /usr/bin/composer
 RUN composer install --prefer-dist --no-interaction
 
+ENTRYPOINT ["migrations.sh"]
+
 CMD ["php","artisan","serve","--host=0.0.0.0"]
 

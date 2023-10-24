@@ -32,4 +32,9 @@ class Exam extends Model
     {
         return $this->belongsToMany(Question::class);
     }
+
+    public function answers(): BelongsToMany
+    {
+        return $this->belongsToMany(Answer::class);
+    }
 }
