@@ -163,7 +163,7 @@ class ExamController extends Controller
 
         $exam->delete();
 
-        return response()->json(['message', 'Prova excluida com sucesso!'], 200);
+        return response()->json(['message' => 'Prova excluida com sucesso!'], 200);
     }
 
     /**
