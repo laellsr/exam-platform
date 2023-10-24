@@ -30,7 +30,7 @@ class ExamStorageRequest extends FormRequest
             'questions' => 'sometimes|array',
             'questions.*.id'                => 'integer|exists:questions,id',
             'questions.*.question_type_id'  => 'required_without:questions.*.id|exists:question_types,id',
-            'questions.*.description'       => 'required_without:questions.*.id|required_with:questions.*|string',
+            'questions.*.description'       => 'required_without:questions.*.id|string',
             'questions.*.options'           => 'required_if:questions.*.question_type_id,>,2|json',
             'questions.*.answer'            => 'required_with:questions.*.options|string',
             'questions.*.level'             => 'required_without:questions.*.id|integer|between:1,5'

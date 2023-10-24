@@ -50,6 +50,13 @@ class ExamController extends Controller
     {
         $exam = Exam::create($request->all());
 
+        $data['exam'] = [
+            'id' => $exam->id,
+            'subject_id' => $exam->subject_id,
+            'subject' => Subject::find($exam->subject_id)->name,
+            'name' => $exam->name
+        ];
+
         if (!empty($request->questions)) {
 
             foreach ($request->questions as $new_question)
@@ -57,6 +64,18 @@ class ExamController extends Controller
                 if (!empty($new_question['id'])) {
                     // a existing question
                     $exam->questions()->attach($new_question['id']);
+
+                    $question = Question::find($new_question['id']);
+
+                    $data['questions'][] = [
+                        'id' => $question->id,
+                        'question_type_id' => $question->question_type_id,
+                        'description' => $question->description,
+                        'options' => $question->options,
+                        'answer' => $question->answer,
+                        'level' => $question->level,
+                    ];
+
                     continue;
                 }
 
@@ -71,17 +90,26 @@ class ExamController extends Controller
                 $question = Question::create($new_question);
 
                 $exam->questions()->attach($question);
+
+                $data['questions'][] = [
+                    'id' => $question->id,
+                    'question_type_id' => $question->question_type_id,
+                    'description' => $question->description,
+                    'options' => $question->options,
+                    'answer' => $question->answer,
+                    'level' => $question->level,
+                ];
             }
         }
 
-        $exam['message'] = 'Prova criada com sucesso!';
+        $data['message'] = 'Prova criada com sucesso!';
 
         // return response()->json([
         //     'message' => 'Prova criada com sucesso!',
         //     'exam_id' => $exam->id
         // ],201);
 
-        return response()->json($exam, 201);
+        return response()->json($data, 201);
     }
 
     /**
