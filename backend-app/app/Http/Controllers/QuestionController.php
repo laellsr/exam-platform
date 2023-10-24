@@ -18,8 +18,8 @@ class QuestionController extends Controller
     public function index(QuestionIndexRequest $request)
     {
         $questions = Question::where('user_id', $request->user_id)
-        ->select('id', 'user_id', 'subject_id', 'description', 'options', 'answer', 'level')
-        ->with(['subject:id,name', 'user:id,name'])
+        ->select('id', 'user_id', 'subject_id', 'question_type_id', 'description', 'options', 'answer', 'level')
+        ->with(['subject:id,name', 'user:id,name', 'question_type:id,name'])
         ->get();
 
         // foreach ($questions as $key => $value) {

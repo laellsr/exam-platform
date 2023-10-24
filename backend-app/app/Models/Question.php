@@ -34,6 +34,11 @@ class Question extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function question_type(): BelongsTo
+    {
+        return $this->belongsTo(QuestionType::class);
+    }
+
     public function exams(): BelongsToMany
     {
         return $this->belongsToMany(Exam::class);
