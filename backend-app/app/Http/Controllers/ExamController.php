@@ -74,10 +74,14 @@ class ExamController extends Controller
             }
         }
 
-        return response()->json([
-            'message' => 'Prova criada com sucesso!',
-            'exam_id' => $exam->id
-        ],201);
+        $exam['message'] = 'Prova criada com sucesso!';
+
+        // return response()->json([
+        //     'message' => 'Prova criada com sucesso!',
+        //     'exam_id' => $exam->id
+        // ],201);
+
+        return response()->json($exam, 201);
     }
 
     /**
