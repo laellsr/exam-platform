@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionTypeController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SubmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,17 @@ Route::prefix('exams')->group(function () {
         Route::delete('destroy/{id}', 'destroy');
         // /** Custom */
         Route::post('generate', 'generate');
+    });
+});
+
+Route::prefix('submissions')->group(function () {
+    Route::controller(SubmissionController::class)->group(function () {
+        /** CRUD */
+        Route::post('/', 'index');
+        // Route::post('show', 'show');
+        Route::post('store', 'store');
+        // Route::put('update', 'update');
+        // Route::delete('destroy/{id}', 'destroy');
     });
 });
 
